@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { FormControl, InputGroup,Button,ListGroup,ButtonGroup,ToggleButton, Container,Form } from 'react-bootstrap';
-import MyListItem from '../model/MyListItem'
+import { FormControl, InputGroup,Button,ListGroup, Container} from 'react-bootstrap';
+import MyListItem from '../model/MyListItem';
+import ListItemComponent from './ListItemComponent';
 
 export default class MyTodoListComponents extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class MyTodoListComponents extends Component {
 
     }
 
+    
     
     handleInputChange=(event)=> {
         const newText = event.target.value
@@ -47,17 +49,9 @@ export default class MyTodoListComponents extends Component {
         const {theListItems,NewItemText}=this.state;
         let itemsLists=[];
         theListItems.forEach(element => {
-     
-
-            itemsLists.push(
-            <ListGroup.Item action variant="secondary">
-
-                     <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label={element.description} id={element.id} />
-                    </Form.Group>
-
-            </ListGroup.Item>);   
-        }  );
+            itemsLists.push(<ListItemComponent item={element}></ListItemComponent>)
+         }  );
+          
     
         return (
           
