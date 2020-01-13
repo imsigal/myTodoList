@@ -6,7 +6,6 @@ export default class MyTodoListComponents extends Component {
     constructor(props) {
         super(props);
 
-
         this.todoList=[];
         this.todoList.push(new MyListItem(0, "feed the cat"));
         this.todoList.push(new MyListItem(1,"buy present"));
@@ -40,7 +39,7 @@ export default class MyTodoListComponents extends Component {
             theListItems: this.todoList.concat(),
             NewItemText: ""
         });
-        //this.props.onFilterChange(this.state.NewItemText);
+
     }
 
 
@@ -48,13 +47,7 @@ export default class MyTodoListComponents extends Component {
         const {theListItems,NewItemText}=this.state;
         let itemsLists=[];
         theListItems.forEach(element => {
-            // if (!element.isCompleted)
-            // {
-            //     itemsLists.push(<ListGroup.Item action variant="secondary">{element.description}</ListGroup.Item>);   
-            // }
-            // else{
-            //     itemsLists.push(<ListGroup.Item action variant="success">{element.description}</ListGroup.Item>);   
-            // }
+     
 
             itemsLists.push(
             <ListGroup.Item action variant="secondary">
