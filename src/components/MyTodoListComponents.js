@@ -35,9 +35,10 @@ export default class MyTodoListComponents extends Component {
 
         const {NewItemText}=this.state;
         let newListItem =new MyListItem(this.todoList[this.todoList.length-1].id+1, NewItemText);
-
+        this.todoList.push(newListItem);
         this.setState({
-            theListItems: this.todoList.concat(newListItem)
+            theListItems: this.todoList.concat(),
+            NewItemText: ""
         });
         //this.props.onFilterChange(this.state.NewItemText);
     }
