@@ -56,9 +56,7 @@ export default class MyTodoListComponents extends Component {
                         <Form.Check type="checkbox" label={element.description} id={element.id} />
                     </Form.Group>
 
-            </ListGroup.Item>);    
-
-
+            </ListGroup.Item>);   
         }  );
     
         return (
