@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControl, InputGroup,Button,ListGroup, Container} from 'react-bootstrap';
+import { FormControl, InputGroup,Button,ListGroup, Container,ButtonToolbar,ToggleButton,ToggleButtonGroup} from 'react-bootstrap';
 import MyListItem from '../model/MyListItem';
 import ListItemComponent from './ListItemComponent';
 
@@ -44,6 +44,28 @@ export default class MyTodoListComponents extends Component {
 
     }
 
+    FilterResults=(event)=>{
+        
+        let filteredArray=[];
+        switch (event) {
+            case 1:
+                filteredArray= this.todoList;
+                break;
+            case 2:
+                filteredArray=this.todoList.filter(item=>item.isCompleted===false);
+                break;
+            case 3:
+                filteredArray=this.todoList.filter(item=>item.isCompleted===true);
+                break;
+            default:
+                filteredArray= this.todoList;
+                break;
+        }
+        this.setState({
+            theListItems: filteredArray
+        }); 
+    }
+
 
     render() {
         const {theListItems,NewItemText}=this.state;
@@ -57,6 +79,14 @@ export default class MyTodoListComponents extends Component {
           
                <Container>
                    <h1>ToDos</h1>
+
+                   <ButtonToolbar >
+                        <ToggleButtonGroup type="radio" name="options" defaultValue={1} onChange={this.FilterResults}>
+                            <ToggleButton variant="light" value={1}>Show All</ToggleButton>
+                            <ToggleButton variant="light" value={2}>Show Active</ToggleButton>
+                            <ToggleButton variant="light" value={3}>Show completed</ToggleButton>
+                        </ToggleButtonGroup>
+                </ButtonToolbar>
                 <ListGroup>
                     {itemsLists}
                 </ListGroup>
