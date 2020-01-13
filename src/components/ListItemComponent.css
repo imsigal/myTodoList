@@ -1,9 +1,11 @@
 .linethrough-text
 {
     text-decoration: line-through;
+    color: gray;
 }
 
 .regular-text
 {
     text-decoration: none;
+    color:black;
 }
