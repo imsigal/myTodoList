@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Checkbox } from 'react-bootstrap';
 import './ListItemComponent.css';
 
 export default class ListItemComponent extends Component {
@@ -14,8 +13,7 @@ export default class ListItemComponent extends Component {
   
 
     handleCheckBoxChange = (event) => {
-            console.log(event.target);
-            if (event.target.checked!=this.props.item.isCompleted)
+                 if (event.target.checked!==this.props.item.isCompleted)
             {
                 this.props.item.isCompleted=event.target.checked;
                 this.setState({

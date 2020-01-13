@@ -87,6 +87,7 @@ export default class MyTodoListComponents extends Component {
                             <ToggleButton variant="light" value={3}>Show completed</ToggleButton>
                         </ToggleButtonGroup>
                 </ButtonToolbar>
+                
                 <ListGroup>
                     {itemsLists}
                 </ListGroup>
