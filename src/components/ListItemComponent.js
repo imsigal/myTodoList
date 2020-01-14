@@ -13,13 +13,27 @@ export default class ListItemComponent extends Component {
   
 
     handleCheckBoxChange = (event) => {
-                 if (event.target.checked!==this.props.item.isCompleted)
+        if (event.target.checked!==this.props.item.isCompleted)
             {
                 this.props.item.isCompleted=event.target.checked;
                 this.setState({
                     wasChanged:true
                     });
             }
+          if (this.props.item.isCompleted) 
+          {
+              if (this.props.OnCompletedTask)
+              {
+                this.props.OnCompletedTask(-1);
+              }
+              
+          } else
+          {
+            if (this.props.OnCompletedTask)
+            {
+              this.props.OnCompletedTask(1);
+            }
+          }
 
         };
         render()

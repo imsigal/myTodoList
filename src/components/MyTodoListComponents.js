@@ -12,7 +12,8 @@ export default class MyTodoListComponents extends Component {
         this.todoList.push(new MyListItem(1,"buy present"));
         this.state = {
             NewItemText: "",
-            theListItems:this.todoList
+            theListItems:this.todoList,
+            ActiveItemsCount:this.todoList.filter(item=>item.isCompleted===false).length
         }
 
     }
@@ -39,7 +40,8 @@ export default class MyTodoListComponents extends Component {
         this.todoList.push(newListItem);
         this.setState({
             theListItems: this.todoList.concat(),
-            NewItemText: ""
+            NewItemText: "",
+            ActiveItemsCount:this.state.ActiveItemsCount+1
         });
 
     }
@@ -66,12 +68,18 @@ export default class MyTodoListComponents extends Component {
         }); 
     }
 
+    CompletedTaskHandler=(count)=>{
+        this.setState({
+            ActiveItemsCount:this.state.ActiveItemsCount+count
+        });
+    }
+
 
     render() {
-        const {theListItems,NewItemText}=this.state;
+        const {theListItems,NewItemText,ActiveItemsCount}=this.state;
         let itemsLists=[];
         theListItems.forEach(element => {
-            itemsLists.push(<ListItemComponent item={element}></ListItemComponent>)
+            itemsLists.push(<ListItemComponent item={element} OnCompletedTask={this.CompletedTaskHandler}></ListItemComponent>)
          }  );
           
     
@@ -87,7 +95,7 @@ export default class MyTodoListComponents extends Component {
                             <ToggleButton variant="light" value={3}>Show completed</ToggleButton>
                         </ToggleButtonGroup>
                 </ButtonToolbar>
-                
+                <h3>{ActiveItemsCount} items left </h3>
                 <ListGroup>
                     {itemsLists}
                 </ListGroup>
