@@ -3,6 +3,7 @@ import { FormControl, InputGroup,Button,ListGroup, Container,ButtonToolbar,Toggl
 import MyListItem from '../model/MyListItem';
 import ListItemComponent from './ListItemComponent';
 import './MyTodoListComponents.css';
+
 export default class MyTodoListComponents extends Component {
     constructor(props) {
         super(props);
@@ -66,6 +67,23 @@ export default class MyTodoListComponents extends Component {
         });
     }
 
+    DeleteItemHandler=(listIndex)=>
+    {
+        var itemIndex=this.todoList.findIndex(item=>item.id===listIndex)
+        if (itemIndex>=0)
+        {
+            this.todoList.splice(itemIndex,1);
+
+            this.setState({
+                theListItems: this.todoList,
+                ActiveItemsCount:this.state.ActiveItemsCount-1
+            });
+            
+        }
+        
+
+    }
+
     // Filter the list according to the buttom show all/ show completed/show active
     filterOptions=()=>
     {
@@ -94,7 +112,7 @@ export default class MyTodoListComponents extends Component {
         let filteredArray=this.filterOptions();
         let itemsLists=[];
         filteredArray.forEach(element => {
-            itemsLists.push(<ListItemComponent item={element} OnCompletedTask={this.CompletedTaskHandler}></ListItemComponent>)
+            itemsLists.push(<ListItemComponent item={element} OnCompletedTask={this.CompletedTaskHandler} OnDeleteItem={this.DeleteItemHandler}></ListItemComponent>)
          }  );
           
     

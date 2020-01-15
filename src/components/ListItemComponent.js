@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './ListItemComponent.css';
 import { Container } from 'react-bootstrap';
+import imageSource from '../images/delete.png'
 
 export default class ListItemComponent extends Component {
     constructor(props) {
         super(props);
     
           this.state = {
-            wasChanged:false
+            wasChanged:false,
+            showDelete:true
         };
 
     }
@@ -37,6 +39,24 @@ export default class ListItemComponent extends Component {
           }
 
         };
+
+        HandleDeleteItem=(index)=>{
+           
+            if (this.props.OnDeleteItem)
+            {
+              this.props.OnDeleteItem(index);
+            }
+        }
+
+        HandleMouseLeave=(event)=>{
+            
+            this.setState({showDelete:false})
+        }
+        handleMouseEnter=(event)=>{
+           
+            this.setState({showDelete:true})
+        }
+
         render()
         {
             const { item } = this.props;
@@ -48,8 +68,9 @@ export default class ListItemComponent extends Component {
                 completedClass = "regular-text";
             }
 
+            let deleteButtonClass=this.state.showDelete===true?"side-right":"hidden"
             return (
-            <Container className="form-check">
+            <Container className="main-item" onMouseOver={this.handleMouseEnter} onMouseLeave={this.HandleMouseLeave}  >
                 <label className={completedClass}>
                     <input
                         type="checkbox"
@@ -58,7 +79,10 @@ export default class ListItemComponent extends Component {
                         onChange={this.handleCheckBoxChange}
                         className="form-check-input"
                     />
-                {item.description}
+                    {item.description}
+                    <button className={deleteButtonClass} onClick={this.HandleDeleteItem.bind(this, item.id)}>
+                        <img src={imageSource} alt="delete" />
+                    </button> 
                 </label>
             </Container>
            
