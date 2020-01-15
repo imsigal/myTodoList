@@ -14,8 +14,8 @@ export default class MyTodoListComponents extends Component {
         this.state = {
             NewItemText: "",
             theListItems:this.todoList,
-            ActiveItemsCount:this.todoList.filter(item=>item.isCompleted===false).length,
-            FilterOptionIndex:1
+            FilterOptionIndex:1,
+            changeItemCount:false
         }
 
     }
@@ -45,7 +45,7 @@ export default class MyTodoListComponents extends Component {
         this.setState({
             theListItems: this.todoList.concat(),
             NewItemText: "",
-            ActiveItemsCount:this.state.ActiveItemsCount+1
+            changeItemCount:true
         });
         
 
@@ -63,8 +63,9 @@ export default class MyTodoListComponents extends Component {
     //actions to do when a task is completed
     CompletedTaskHandler=(count)=>{
         this.setState({
-            ActiveItemsCount:this.state.ActiveItemsCount+count
+            changeItemCount:true
         });
+        
     }
 
     DeleteItemHandler=(listIndex)=>
@@ -85,7 +86,7 @@ export default class MyTodoListComponents extends Component {
 
             this.setState({
                 theListItems: this.todoList,
-                ActiveItemsCount:this.state.ActiveItemsCount-1
+                changeItemCount:true
             });
             
         }
@@ -115,8 +116,15 @@ export default class MyTodoListComponents extends Component {
         return filteredArray;
     }
 
+     getActiveItemCount()
+    {
+        let filteredArray=this.todoList.filter(item=>item.isCompleted===false);
+       return (filteredArray.length);    
+    }
+
+  
     render() {
-        const {NewItemText,ActiveItemsCount}=this.state;
+        const {NewItemText}=this.state;
 
         let filteredArray=this.filterOptions();
         let itemsLists=[];
@@ -124,6 +132,7 @@ export default class MyTodoListComponents extends Component {
             itemsLists.push(<ListItemComponent item={element} OnCompletedTask={this.CompletedTaskHandler} OnDeleteItem={this.DeleteItemHandler}></ListItemComponent>)
          }  );
           
+        const activeItemCount= this.getActiveItemCount();
     
         return (
           
@@ -137,7 +146,7 @@ export default class MyTodoListComponents extends Component {
                             <ToggleButton variant="light" value={3}>Show completed</ToggleButton>
                         </ToggleButtonGroup>
                 </ButtonToolbar>
-                <h5 className="left-items">{ActiveItemsCount} items left </h5>
+                <h5 className="left-items">{activeItemCount} items left </h5>
                 <ListGroup>
                     {itemsLists}
                 </ListGroup>
