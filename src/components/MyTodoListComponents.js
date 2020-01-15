@@ -72,6 +72,15 @@ export default class MyTodoListComponents extends Component {
         var itemIndex=this.todoList.findIndex(item=>item.id===listIndex)
         if (itemIndex>=0)
         {
+            // if the task is not completed, show user a message
+            if (this.todoList[itemIndex].isCompleted===false)
+            {
+                let result=window.confirm("This task was not completed, to delete it anyway??");
+                if (result===false)
+                    {
+                        return;
+                    }
+            }
             this.todoList.splice(itemIndex,1);
 
             this.setState({
