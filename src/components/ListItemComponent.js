@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ListItemComponent.css';
+import { Container } from 'react-bootstrap';
 
 export default class ListItemComponent extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ export default class ListItemComponent extends Component {
             }
 
             return (
-            <div className="form-check">
+            <Container className="form-check">
                 <label className={completedClass}>
                     <input
                         type="checkbox"
@@ -59,7 +60,7 @@ export default class ListItemComponent extends Component {
                     />
                 {item.description}
                 </label>
-            </div>
+            </Container>
            
             );
         }

@@ -1,0 +1,26 @@
+.main-todo{
+    border: 2px solid green;
+    margin: 10px;
+    border-radius: 10px;
+    
+}
+
+.container>h1{
+    text-align: center;
+}
+
+.main-todo h5.left-items{
+    color: green;
+    padding: 5px;
+   text-decoration: underline;
+}
+
+.main-todo .input
+{
+    background-color: rgb(237,242,242);
+}
+
+.main-todo .form-control:focus
+{
+    background-color: rgb(237,242,242);
+}

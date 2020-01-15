@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FormControl, InputGroup,Button,ListGroup, Container,ButtonToolbar,ToggleButton,ToggleButtonGroup} from 'react-bootstrap';
 import MyListItem from '../model/MyListItem';
 import ListItemComponent from './ListItemComponent';
-
+import './MyTodoListComponents.css';
 export default class MyTodoListComponents extends Component {
     constructor(props) {
         super(props);
@@ -100,9 +100,9 @@ export default class MyTodoListComponents extends Component {
     
         return (
           
-               <Container>
+               <Container  className="main-todo">
                    <h1>ToDos</h1>
-
+                <div>
                    <ButtonToolbar >
                         <ToggleButtonGroup type="radio" name="options" defaultValue={1} onChange={this.FilterResults}>
                             <ToggleButton variant="light" value={1}>Show All</ToggleButton>
@@ -110,13 +110,13 @@ export default class MyTodoListComponents extends Component {
                             <ToggleButton variant="light" value={3}>Show completed</ToggleButton>
                         </ToggleButtonGroup>
                 </ButtonToolbar>
-                <h3>{ActiveItemsCount} items left </h3>
+                <h5 className="left-items">{ActiveItemsCount} items left </h5>
                 <ListGroup>
                     {itemsLists}
                 </ListGroup>
               
                  <InputGroup className="mb-3" size="lg">
-                    <FormControl
+                    <FormControl className="input"
                         placeholder="Add new item..."
                         aria-label="Add new Item..."
                         aria-describedby="basic-addon2"
@@ -128,7 +128,7 @@ export default class MyTodoListComponents extends Component {
                         <Button variant="outline-secondary"  onClick={this.HandleNewItem}>Add item</Button>
                     </InputGroup.Append>
                 </InputGroup>
-              
+                </div>
             </Container>
         )
     }
