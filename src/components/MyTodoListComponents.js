@@ -13,13 +13,14 @@ export default class MyTodoListComponents extends Component {
         this.state = {
             NewItemText: "",
             theListItems:this.todoList,
-            ActiveItemsCount:this.todoList.filter(item=>item.isCompleted===false).length
+            ActiveItemsCount:this.todoList.filter(item=>item.isCompleted===false).length,
+            FilterOptionIndex:1
         }
 
     }
 
     
-    
+    // handle input text change
     handleInputChange=(event)=> {
         const newText = event.target.value
         this.setState({
@@ -27,13 +28,15 @@ export default class MyTodoListComponents extends Component {
         });
     }
 
+    // handle for enter key to accept changes
     handleKeyDownEvent=(event)=>{
         if (event.key === 'Enter') {
-            this.handleChange(event);
+            this.HandleNewItem(event);
         }
     }
 
-    handleChange=(event)=>{    
+     // handle New item is added to the list
+    HandleNewItem=(event)=>{    
 
         const {NewItemText}=this.state;
         let newListItem =new MyListItem(this.todoList[this.todoList.length-1].id+1, NewItemText);
@@ -43,13 +46,31 @@ export default class MyTodoListComponents extends Component {
             NewItemText: "",
             ActiveItemsCount:this.state.ActiveItemsCount+1
         });
+        
 
     }
 
+    // set the index according to the button pressed ( handler to the button click)
     FilterResults=(event)=>{
+        this.setState({
+            FilterOptionIndex:event
+        })
         
+
+        
+    }
+    //actions to do when a task is completed
+    CompletedTaskHandler=(count)=>{
+        this.setState({
+            ActiveItemsCount:this.state.ActiveItemsCount+count
+        });
+    }
+
+    // Filter the list according to the buttom show all/ show completed/show active
+    filterOptions=()=>
+    {
         let filteredArray=[];
-        switch (event) {
+        switch (this.state.FilterOptionIndex) {
             case 1:
                 filteredArray= this.todoList;
                 break;
@@ -63,22 +84,16 @@ export default class MyTodoListComponents extends Component {
                 filteredArray= this.todoList;
                 break;
         }
-        this.setState({
-            theListItems: filteredArray
-        }); 
+     
+        return filteredArray;
     }
-
-    CompletedTaskHandler=(count)=>{
-        this.setState({
-            ActiveItemsCount:this.state.ActiveItemsCount+count
-        });
-    }
-
 
     render() {
-        const {theListItems,NewItemText,ActiveItemsCount}=this.state;
+        const {NewItemText,ActiveItemsCount}=this.state;
+
+        let filteredArray=this.filterOptions();
         let itemsLists=[];
-        theListItems.forEach(element => {
+        filteredArray.forEach(element => {
             itemsLists.push(<ListItemComponent item={element} OnCompletedTask={this.CompletedTaskHandler}></ListItemComponent>)
          }  );
           
@@ -110,7 +125,7 @@ export default class MyTodoListComponents extends Component {
                          onKeyDown={this.handleKeyDownEvent}
                     />
                     <InputGroup.Append>
-                        <Button variant="outline-secondary"  onClick={this.handleChange}>Add item</Button>
+                        <Button variant="outline-secondary"  onClick={this.HandleNewItem}>Add item</Button>
                     </InputGroup.Append>
                 </InputGroup>
               
